@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening Tribute</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { 
+  height:100%; 
+  font-family:'Inter',sans-serif; 
+  background:linear-gradient(135deg,#f8f4f1,#e9e5e2); 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  overflow:hidden; 
+}
+
+.container { 
+  text-align:center; 
+  position:relative; 
+  z-index:1; 
+}
+
+#message1 { 
+  font-family:'Playfair Display', serif; 
+  font-size:2rem; 
+  color:#4b3f3f; 
+  opacity:0; 
+  transform:translateY(50px); 
+  transition: opacity 1s ease, transform 1s ease; 
+}
+
+#message1.visible { 
+  opacity:1; 
+  transform:translateY(0); 
+}
+
+#readyContainer {
+  margin-top:50px; 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  opacity:0; 
+  transition: opacity 1s ease;
+}
+
+#readyContainer.visible { opacity:1; }
+
+#readyContainer p { 
+  font-family:'Playfair Display', serif; 
+  font-size:1.5rem; 
+  color:#4b3f3f; 
+  margin-bottom:1rem; 
+}
+
+#readyBtn {
+  font-family:'Inter',sans-serif;
+  font-size:1.2rem;
+  padding:0.8rem 1.5rem;
+  border:none;
+  border-radius:12px;
+  background:#6d4c41;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:transform 0.2s, background 0.3s;
+}
+
+#readyBtn:hover { transform:scale(1.05); background:#5b3a30; }
+
+#countdown { 
+  font-size:15rem; 
+  font-weight:700; 
+  color:#6d4c41; 
+  position:fixed; 
+  top:50%; 
+  left:50%; 
+  transform:translate(-50%,-50%); 
+  display:none; 
+  z-index:5; 
+  text-shadow:0 0 20px rgba(255,182,193,0.7);
+}
+
+/* Visual effects: glowing bubbles */
+.bubble { 
+  position:absolute; 
+  border-radius:50%; 
+  background:rgba(255,182,193,0.3); 
+  pointer-events:none; 
+  box-shadow:0 0 20px rgba(255,182,193,0.6); 
+  animation:floatBubble linear infinite; 
+}
+
+@keyframes floatBubble { 
+  0% { transform:translateY(0) scale(1); opacity:0.3; } 
+  50% { opacity:0.7; } 
+  100% { transform:translateY(-100vh) scale(0.5); opacity:0; } 
+}
+
+.fade-out { animation:fadeOut 1s forwards; }
+@keyframes fadeOut { to { opacity:0; } }
+
+</style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+  <!-- First message -->
+  <div id="message1">Before I leave, I wanted to tell you a few things about you</div>
+
+  <!-- Second message with Yes button -->
+  <div id="readyContainer">
+    <p>Are you ready?</p>
+    <button id="readyBtn">Yes</button>
+  </div>
+</div>
+
+<div id="countdown"></div>
+
+<script>
+const message1 = document.getElementById('message1');
+const readyContainer = document.getElementById('readyContainer');
+const btn = document.getElementById('readyBtn');
+const countdown = document.getElementById('countdown');
+const mainContainer = document.getElementById('mainContainer');
+
+// Step 1: Show first message
+setTimeout(() => {
+  message1.classList.add('visible');
+  setTimeout(() => { readyContainer.classList.add('visible'); }, 1000);
+}, 500);
+
+// Step 2: Click Yes button
+btn.addEventListener('click', () => {
+  // Fade out messages
+  message1.classList.add('fade-out');
+  readyContainer.classList.add('fade-out');
+  btn.style.display='none';
+
+  // Create visual bubbles
+  createBubbles(70);
+
+  // Show full-screen countdown
+  let numbers = [3,2,1];
+  countdown.style.display = 'block';
+  let i = 0;
+  const interval = setInterval(() => {
+    if(i < numbers.length){
+      countdown.textContent = numbers[i];
+      i++;
+    } else {
+      clearInterval(interval);
+      // Fade out entire page for smooth transition
+      mainContainer.classList.add('fade-out');
+      countdown.classList.add('fade-out');
+      setTimeout(()=> { window.location.href = "index.html"; },1000);
+    }
+  },1000);
+});
+
+// Bubbles function
+function createBubbles(total){
+  for(let i=0;i<total;i++){
+    const bubble=document.createElement('div');
+    bubble.className='bubble';
+    bubble.style.width=(10+Math.random()*30)+'px';
+    bubble.style.height=bubble.style.width;
+    bubble.style.left=Math.random()*window.innerWidth+'px';
+    bubble.style.top=(window.innerHeight + Math.random()*100)+'px';
+    bubble.style.animationDuration=(4+Math.random()*6)+'s';
+    document.body.appendChild(bubble);
+  }
+}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.log('SW Error:', err));
+}
+</script>
+
+</body>
+</html>

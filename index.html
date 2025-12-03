@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribute To The Cutest HR</title>
+<link rel="manifest" href="manifest.json">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; font-family:'Inter',sans-serif; background:#f8f4f1; overflow-x:hidden; }
+  body { display:flex; flex-direction:column; align-items:center; padding:2rem; position:relative; }
+
+  h1 { font-family:'Playfair Display', serif; font-size:2.5rem; font-weight:700; text-align:center; color:#4b3f3f; margin-bottom:3rem; }
+
+  /* Timeline vertical layout */
+  .timeline {
+    position: relative;
+    max-width:900px;
+    width:100%;
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  .timeline::before {
+    content:''; position:absolute; left:50%; transform:translateX(-50%);
+    width:4px; height:100%; background:#cbbcb1; border-radius:2px;
+  }
+
+  section {
+    position: relative; width:45%; padding:1.5rem 2rem; background:rgba(255,255,255,0.95);
+    border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin:2rem 0;
+    opacity:0; transform:translateY(50px); transition:opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  section.visible { opacity:1; transform:translateY(0); }
+  section:nth-child(odd) { left:0; }
+  section:nth-child(even) { left:55%; }
+  section::before {
+    content:''; position:absolute; top:20px; width:20px; height:20px; background:#6d4c41;
+    border-radius:50%; border:4px solid #fff; left:-10px;
+  }
+  section:nth-child(even)::before { left:-30px; }
+
+  h2 { font-family:'Playfair Display', serif; font-size:1.8rem; font-weight:700; margin-bottom:1rem; color:#6d4c41; }
+  p { font-size:1.1rem; line-height:1.8; margin-bottom:1.5rem; color:#3e3a39; }
+
+  /* Image card */
+  .image-container {
+    width:100%; border-radius:12px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.08); margin-bottom:1rem;
+  }
+  .image-container img, .image-container .placeholder {
+    width:100%; display:block; object-fit:cover; max-height:400px;
+  }
+  .placeholder { display:flex; align-items:center; justify-content:center; background:#ddd; color:#666; font-size:1rem; height:100%; text-align:center; }
+
+  /* Hover card for summary */
+  .hover-card {
+    position:absolute; top:10%; left:105%; width:200px; padding:1rem; background:rgba(255,255,255,0.95);
+    border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.15); opacity:0; transition:opacity 0.3s ease;
+    font-size:0.95rem; color:#3e3a39; z-index:5;
+  }
+  section:hover .hover-card { opacity:1; }
+
+  footer { margin-top:3rem; text-align:center; font-size:0.9rem; color:#555; }
+
+  .audio-controls { position:fixed; bottom:1rem; right:1rem; background:rgba(255,255,255,0.85); border-radius:50px;
+    padding:0.5rem 1rem; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; gap:0.5rem; z-index:10;
+  }
+  .audio-controls button { background:#6d4c41; color:#fff; border:none; padding:0.5rem 0.8rem; border-radius:8px; cursor:pointer; font-size:0.9rem; }
+  .audio-controls button:focus { outline:2px solid #bfa49a; }
+
+  @media (max-width:768px) {
+    h1 { font-size:2rem; }
+    section { width:90% !important; left:5% !important; }
+    .hover-card { left:auto; top:105%; width:90%; }
+  }
+
+  /* Petals animation */
+  .petal { position:absolute; width:10px; height:10px; background:rgba(255,182,193,0.3); border-radius:50%; pointer-events:none; animation:floatPetals linear infinite; }
+  @keyframes floatPetals {
+    0% { transform:translateY(0) translateX(0) rotate(0deg); opacity:0.3; }
+    50% { opacity:0.6; }
+    100% { transform:translateY(-100vh) translateX(50px) rotate(360deg); opacity:0; }
+  }
+</style>
+</head>
+<body>
+
+<audio id="bg-music" src="background-music.mp3" loop autoplay></audio>
+
+<div class="audio-controls">
+  <button id="playPauseBtn">Pause</button>
+  <button id="muteBtn">Unmute</button>
+  <span>Play / Pause music</span>
+</div>
+
+<h1>A Tribute To The Cutest HR</h1>
+
+<div class="timeline">
+
+  <!-- Section 1 -->
+  <section>
+    <h2>Presence and Composure</h2>
+    <p>
+      In corridors where wisdom walks, your presence stands profound,  
+      A calm that steers the ship of order, where respect is found.  
+      Authority tempered with gentleness, an example clear,  
+      Guiding each endeavor with dignity, hearts drawn near.
+    </p>
+    <div class="image-container">
+      <img src="photo1.jpg" alt="Photo for stanza 1">
+      <div class="placeholder"></div>
+    </div>
+    <div class="hover-card">
+      Your presence is the calm that commands respect; you are the serene anchor holding the ship of grace steady.
+    </div>
+  </section>
+
+  <!-- Section 2 -->
+  <section>
+    <h2>Kindness in Dealing with Others</h2>
+    <p>
+      With measured words and thoughtful acts, you inspire all,  
+      Each challenge met with patience, answering every call.  
+      Compassion flows in deeds unseen, yet clearly felt,  
+      Through every hand you guide, each heart you gently melt.
+    </p>
+    <div class="image-container">
+      <img src="photo2.jpg" alt="Photo for stanza 2">
+      <div class="placeholder"></div>
+    </div>
+    <div class="hover-card">
+     Your kindness is a gentle magic, melting away challenges with a thoughtful word and unseen compassion.
+    </div>
+  </section>
+
+  <!-- Section 3 -->
+  <section>
+    <h2>Professional Excellence</h2>
+    <p>
+      A master of your craft, each task executed with grace,  
+      Systems aligned, processes honed, nothing left to trace.  
+      Leadership in every action, meticulous, precise,  
+      Professionalism in each decision, honorable and wise.
+    </p>
+    <div class="image-container">
+      <img src="photo3.jpg" alt="Photo for stanza 3">
+      <div class="placeholder"></div>
+    </div>
+    <div class="hover-card">
+      You are the master artist of your craft; your excellence turns every task into a polished, honorable masterpiece
+    </div>
+  </section>
+
+  <!-- Section 4 -->
+  <section>
+    <h2>Dignified Beauty</h2>
+    <p>
+      Elegance resides not merely in form, but in your way,  
+      In every gesture, poise, and counsel you convey.  
+      A presence marked by quiet strength, admired from afar,  
+      A guiding light of honor, a truly noble star.
+    </p>
+    <div class="image-container">
+      <img src="photo4.jpg" alt="Photo for stanza 4">
+      <div class="placeholder"></div>
+    </div>
+    <div class="hover-card">
+      Elegance radiates not just from your form, but from the quiet strength and poise that makes you a truly noble star.
+    </div>
+  </section>
+
+</div>
+
+<footer>Prepared with respect and gratitude.</footer>
+
+<script>
+const bgMusic = document.getElementById('bg-music');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const muteBtn = document.getElementById('muteBtn');
+
+/* --- FORCED AUTOPLAY FIX --- */
+// Attempt autoplay immediately
+function tryPlay(){
+  bgMusic.play().then(()=>{
+    console.log("Autoplay success");
+  }).catch(()=>{
+    console.log("Waiting for user interaction...");
+  });
+}
+
+// Try on load
+window.addEventListener('load', tryPlay);
+
+// Try again when user interacts anywhere
+document.addEventListener('click', tryPlay, { once:true });
+document.addEventListener('touchstart', tryPlay, { once:true });
+
+// Safety loop: tries to re-play every 1 second until successful
+let forceAutoplay = setInterval(() => {
+  bgMusic.play().then(() => {
+    clearInterval(forceAutoplay);
+  }).catch(() => {});
+}, 1000);
+
+/* --- PLAY / PAUSE BUTTON --- */
+playPauseBtn.addEventListener('click', () => {
+  if(bgMusic.paused){
+    bgMusic.play();
+    playPauseBtn.textContent='Pause';
+  } else {
+    bgMusic.pause();
+    playPauseBtn.textContent='Play';
+  }
+});
+
+/* --- MUTE BUTTON --- */
+muteBtn.addEventListener('click', () => {
+  bgMusic.muted = !bgMusic.muted;
+  muteBtn.textContent = bgMusic.muted ? 'Unmute' : 'Mute';
+});
+
+/* --- FADE-IN SECTIONS --- */
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold:0.2 });
+sections.forEach(section => observer.observe(section));
+
+/* --- PETALS ANIMATION --- */
+const totalPetals = 30;
+for(let i=0;i<totalPetals;i++){
+  const petal=document.createElement('div');
+  petal.className='petal';
+  petal.style.left=Math.random()*window.innerWidth+'px';
+  petal.style.animationDuration=(5+Math.random()*10)+'s';
+  petal.style.width=(5+Math.random()*10)+'px';
+  petal.style.height=petal.style.width;
+  document.body.appendChild(petal);
+}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.log('SW Error:', err));
+}
+</script>
+
+</body>
+</html>
